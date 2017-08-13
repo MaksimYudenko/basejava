@@ -7,7 +7,14 @@ import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.Assert.*;
 
-public class MapStorageTest {
+public class MapStorageTest extends AbstractArrayStorageTest {
+    public MapStorageTest() {
+        super(new MapStorage());
+    }
+}
+/*
+
+    private MapStorage storageMap = new MapStorage();
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -26,56 +33,75 @@ public class MapStorageTest {
         RESUME_4 = new Resume(UUID_4);
     }
 
-    private MapStorage storageMap = new MapStorage();
-
     @Before
     public void setUp() throws Exception {
-        storageMap.clear();
-        storageMap.save(RESUME_1);
-        storageMap.save(RESUME_2);
-        storageMap.save(RESUME_3);
-        storageMap.save(RESUME_4);
+        storageList.clear();
+        storageList.save(RESUME_1);
+        storageList.save(RESUME_2);
+        storageList.save(RESUME_3);
     }
 
     @Test
     public void size() {
-        assertSize(4);
+        assertSize(3);
     }
 
     @Test
     public void clear() throws Exception {
-        storageMap.clear();
+        storageList.clear();
+        assertSize(0);
     }
 
     @Test
     public void update() throws Exception {
-        Resume r = new Resume(UUID_2);
-        storageMap.update(r);
-        assertTrue(r.equals(storageMap.get(UUID_2)));
+        Resume newResume = new Resume(UUID_2);
+        storageList.update(newResume);
+        assertTrue(newResume.equals(storageList.get(UUID_2)));
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void updateNotExist() throws Exception {
+        storageList.get("dummy");
     }
 
     @Test
     public void getAll() throws Exception {
-        Resume[] array = storageMap.getAll();
-        assertEquals(4, array.length);
+        Resume[] array = storageList.getAll();
+        assertEquals(3, array.length);
         assertEquals(RESUME_1, array[0]);
         assertEquals(RESUME_2, array[1]);
-        assertEquals(RESUME_4, array[3]);
+        assertEquals(RESUME_3, array[2]);
     }
 
     @Test
     public void save() throws Exception {
-        Resume r = new Resume("uuid5");
-        storageMap.save(r);
-        assertSize(5);
-        assertGet(r);
+        storageList.save(RESUME_4);
+        assertSize(4);
+        assertGet(RESUME_4);
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void saveExist() throws Exception {
+        storageList.save(RESUME_1);
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveOverflow() throws Exception {
+        try {
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storageList.save(new Resume());
+            }
+        } catch (StorageException e) {
+            Assert.fail();
+        }
+       storageList.save(new Resume());
     }
 
     @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
-        storageMap.delete(UUID_1);
-        assertSize(3);
-        storageMap.get(UUID_1);
+        storageList.delete(UUID_1);
+        assertSize(2);
+        storageList.get(UUID_1);
     }
 
     @Test
@@ -83,20 +109,19 @@ public class MapStorageTest {
         assertGet(RESUME_1);
         assertGet(RESUME_2);
         assertGet(RESUME_3);
-        assertGet(RESUME_4);
     }
 
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
-        storageMap.get("dummy");
+        storageList.get("dummy");
     }
 
     private void assertGet(Resume r) {
-        assertEquals(r, storageMap.get(r.getUuid()));
+        assertEquals(r, storageList.get(r.getUuid()));
     }
 
     private void assertSize(int size) {
-        assertEquals(size, storageMap.size());
+        assertEquals(size, storageList.size());
     }
-}
+}*/

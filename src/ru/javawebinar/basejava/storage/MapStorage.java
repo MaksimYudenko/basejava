@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -29,12 +30,16 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void saveElement(Resume r) {
-        insertElement(r, getIndex(r.getUuid()));
+        storageMap.put(r.getUuid(), r);
     }
 
     @Override
     protected void insertElement(Resume r, int index) {
-        storageMap.put(r.getUuid(), r);
+        for (Map.Entry<String, Resume> entry : storageMap.entrySet()) {
+            if (r.getUuid().equals(entry.getKey())) {
+                entry.setValue(r);
+            }
+        }
     }
 
     @Override

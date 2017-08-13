@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.storage.*;
 
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+    static final Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -19,8 +19,10 @@ public class MainTestArrayStorage {
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         //System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
-
         printAll();
+        System.out.println();
+        ARRAY_STORAGE.update(r3);
+        System.out.println("update r3: " + ARRAY_STORAGE.get(r3.getUuid()));
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
         ARRAY_STORAGE.clear();

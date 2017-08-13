@@ -29,12 +29,15 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void saveElement(Resume r) {
-        insertElement(r, getIndex(r.getUuid()));
+        storageList.add(r);
     }
 
     @Override
     protected void insertElement(Resume r, int index) {
-        storageList.add(r);
+        for (Resume resume : storageList) {
+            if (storageList.get(index).equals(resume))
+                storageList.set(index, r);
+        }
     }
 
     @Override
