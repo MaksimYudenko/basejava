@@ -27,7 +27,6 @@ public class MapStorage extends AbstractStorage {
         return storageMap.size();
     }
 
-
     @Override
     protected void saveElement(Resume r) {
         storageMap.put(r.getUuid(), r);
@@ -53,8 +52,9 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteElement(String uuid) {
-        storageMap.remove(uuid);
+    protected void deleteElement(int index) {
+        String key = "uuid" + index;
+        storageMap.remove(key);
     }
 
     @Override

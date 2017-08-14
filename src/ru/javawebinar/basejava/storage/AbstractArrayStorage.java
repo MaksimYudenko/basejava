@@ -33,7 +33,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
-            insertElement(r, getIndex(r.getUuid()));
+            storage[size] = r;
             size++;
         }
     }
@@ -47,8 +47,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteElement(String uuid) {
-        fillDeletedElement(getIndex(uuid));
+    protected void deleteElement(int index) {
+        fillDeletedElement(index);
         size--;
     }
 

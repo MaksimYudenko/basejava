@@ -26,7 +26,6 @@ public class ListStorage extends AbstractStorage {
         return storageList.size();
     }
 
-
     @Override
     protected void saveElement(Resume r) {
         storageList.add(r);
@@ -34,10 +33,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void insertElement(Resume r, int index) {
-        for (Resume resume : storageList) {
-            if (storageList.get(index).equals(resume))
-                storageList.set(index, r);
-        }
+        storageList.set(index, r);
     }
 
     @Override
@@ -46,8 +42,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteElement(String uuid) {
-        storageList.remove(getIndex(uuid));
+    protected void deleteElement(int index) {
+        storageList.remove(index);
     }
 
     @Override

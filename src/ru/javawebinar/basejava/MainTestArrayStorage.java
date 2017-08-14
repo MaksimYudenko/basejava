@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.storage.*;
 
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new MapStorage();
+    static final Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
