@@ -2,13 +2,11 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
-    private Map<String, Resume> storageMap = new TreeMap<>();
+    private Map<String, Resume> storageMap = new HashMap<>();
 
     @Override
     public void clear() {
@@ -33,40 +31,34 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertElement(Resume r, int index) {
-        for (Map.Entry<String, Resume> entry : storageMap.entrySet()) {
-            if (r.getUuid().equals(entry.getKey())) {
-                entry.setValue(r);
-            }
-        }
+    protected void insertElement(Resume r, Object index) {
+//        storageMap.put(r.getUuid(), r);
+        storageMap.put((String) index, r);
     }
 
     @Override
     protected Resume getElement(String uuid) {
-        Resume r = null;
-        for (Map.Entry<String, Resume> entry : storageMap.entrySet()) {
-            if (uuid.equals(entry.getKey())) r = entry.getValue();
-        }
-
-        return r;
+        return storageMap.get(uuid);
     }
 
     @Override
-    protected void deleteElement(int index) {
-        String key = "uuid" + index;
-        storageMap.remove(key);
+    protected void deleteElement(String uuid) {
+        storageMap.remove(uuid);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        int index = -1;
-        for (Map.Entry<String, Resume> entry : storageMap.entrySet()) {
-            if (uuid.equals(entry.getKey())) {
-                String key = entry.getKey();
-                char[] keyChars = key.toCharArray();
-                index = Character.getNumericValue(keyChars[keyChars.length - 1]);
+    protected String getIndex(String uuid) {
+        String index = null;
+        for (String key : storageMap.keySet()) {
+            if (uuid.equals(key)) {
+                index = key;
             }
         }
         return index;
+    }
+
+    @Override
+    protected boolean isContains(Object index) {
+        return index != null;
     }
 }
