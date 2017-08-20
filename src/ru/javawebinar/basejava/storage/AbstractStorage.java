@@ -6,47 +6,48 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
+    private Object key;
+    private String uuid;
+
+    protected abstract Object getKey(String uuid);
+
+    protected abstract boolean isContains(Object searchKey);
+
+    private boolean isResumeExist(String id) {
+        uuid = id;
+        key = getKey(uuid);
+        return isContains(key);
+    }
+
     public void update(Resume r) {
-        String uuid = r.getUuid();
-        if (isResumeExist(uuid)) {
-            insertElement(r, getIndex(uuid));
+        if (isResumeExist(r.getUuid())) {
+            updateElement(r, key);
         } else throw new NotExistStorageException(uuid);
     }
 
     public void save(Resume r) {
-        String uuid = r.getUuid();
-        if (isResumeExist(uuid)) {
+        if (isResumeExist(r.getUuid())) {
             throw new ExistStorageException(uuid);
-        } else saveElement(r);
+        } else saveElement(r, key);
     }
 
     public Resume get(String uuid) {
         if (isResumeExist(uuid)) {
-            return getElement(uuid);
+            return getElement(key);
         } else throw new NotExistStorageException(uuid);
     }
 
     public void delete(String uuid) {
         if (isResumeExist(uuid)) {
-            deleteElement(uuid);
+            deleteElement(key);
         } else throw new NotExistStorageException(uuid);
     }
 
+    protected abstract void updateElement(Resume r, Object searchKey);
 
-    protected abstract void saveElement(Resume r);
+    protected abstract void saveElement(Resume r, Object searchKey);
 
-    protected abstract void insertElement(Resume r, Object index);
+    protected abstract Resume getElement(Object searchKey);
 
-    protected abstract Resume getElement(String uuid);
-
-    protected abstract void deleteElement(String uuid);
-
-    protected abstract Object getIndex(String uuid);
-
-    protected abstract boolean isContains(Object index);
-
-    private boolean isResumeExist(String uuid) {
-        Object index = getIndex(uuid);
-        return isContains(index);
-    }
+    protected abstract void deleteElement(Object searchKey);
 }

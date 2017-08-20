@@ -12,10 +12,46 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     int size = 0;
 
     @Override
+    protected boolean isContains(Object searchKey) {
+        return (Integer) searchKey >= 0;
+    }
+
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
+
+    @Override
+    protected void updateElement(Resume r, Object searchKey) {
+        storage[(Integer) searchKey] = r;
+    }
+
+    @Override
+    protected void saveElement(Resume r, Object searchKey) {
+        if (size == STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", r.getUuid());
+        } else {
+            insertElement(r, searchKey);
+            size++;
+        }
+    }
+
+    protected abstract void insertElement(Resume r, Object searchKey);
+
+    @Override
+    protected Resume getElement(Object searchKey) {
+        return storage[(Integer) searchKey];
+    }
+
+    @Override
+    protected void deleteElement(Object searchKey) {
+        fillDeletedElement((Integer) searchKey);
+        storage[size - 1] = null;
+        size--;
+    }
+
+    protected abstract void fillDeletedElement(int index);
 
     @Override
     public Resume[] getAll() {
@@ -25,37 +61,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     public int size() {
         return size;
-    }
-
-    @Override
-    protected void saveElement(Resume r) {
-        if (size == STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else {
-            insertElement(r, getIndex(r.getUuid()));
-            size++;
-        }
-    }
-
-    @Override
-    protected abstract void insertElement(Resume r, Object index);
-
-    @Override
-    protected Resume getElement(String uuid) {
-        return storage[(Integer) getIndex(uuid)];
-    }
-
-    @Override
-    protected void deleteElement(String uuid) {
-        fillDeletedElement((Integer) getIndex(uuid));
-        storage[size - 1] = null;
-        size--;
-    }
-
-    protected abstract void fillDeletedElement(int index);
-
-    @Override
-    protected boolean isContains(Object index) {
-        return (Integer) index >= 0;
     }
 }

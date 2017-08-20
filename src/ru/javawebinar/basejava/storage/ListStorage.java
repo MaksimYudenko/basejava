@@ -10,8 +10,44 @@ public class ListStorage extends AbstractStorage {
     private List<Resume> storageList = new ArrayList<>();
 
     @Override
+    protected Object getKey(String uuid) {
+        int index = -1;
+        for (Resume r : storageList) {
+            if (uuid.equals(r.getUuid()))
+                index = storageList.indexOf(r);
+        }
+        return index;
+    }
+
+    @Override
+    protected boolean isContains(Object searchKey) {
+        return (Integer) searchKey >= 0;
+    }
+
+    @Override
     public void clear() {
         storageList.clear();
+    }
+
+    @Override
+    protected void updateElement(Resume r, Object searchKey) {
+        storageList.set((Integer) searchKey, r);
+    }
+
+    @Override
+    protected void saveElement(Resume r, Object searchKey) {
+        storageList.add(r);
+    }
+
+    @Override
+    protected Resume getElement(Object searchKey) {
+        return storageList.get((Integer) searchKey);
+    }
+
+    @Override
+    protected void deleteElement(Object searchKey) {
+        int index = (Integer) searchKey;
+        storageList.remove(index);
     }
 
     @Override
@@ -24,41 +60,5 @@ public class ListStorage extends AbstractStorage {
     @Override
     public int size() {
         return storageList.size();
-    }
-
-    @Override
-    protected void saveElement(Resume r) {
-        storageList.add(r);
-    }
-
-    @Override
-    protected void insertElement(Resume r, Object index) {
-        storageList.set((Integer) index, r);
-    }
-
-    @Override
-    protected Resume getElement(String uuid) {
-        return storageList.get((Integer) getIndex(uuid));
-    }
-
-    @Override
-    protected void deleteElement(String uuid) {
-        int index = (Integer) getIndex(uuid);
-        storageList.remove(index);
-    }
-
-    @Override
-    protected Object getIndex(String uuid) {
-        int index = -1;
-        for (Resume r : storageList) {
-            if (uuid.equals(r.getUuid()))
-                index = storageList.indexOf(r);
-        }
-        return index;
-    }
-
-    @Override
-    protected boolean isContains(Object index) {
-        return (Integer) index >= 0;
     }
 }

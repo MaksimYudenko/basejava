@@ -9,8 +9,44 @@ public class MapStorage extends AbstractStorage {
     private Map<String, Resume> storageMap = new HashMap<>();
 
     @Override
+    protected String getKey(String uuid) {
+        String index = null;
+        for (String key : storageMap.keySet()) {
+            if (uuid.equals(key)) {
+                index = key;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    protected boolean isContains(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
     public void clear() {
         storageMap.clear();
+    }
+
+    @Override
+    protected void updateElement(Resume r, Object searchKey) {
+        storageMap.put((String) searchKey, r);
+    }
+
+    @Override
+    protected void saveElement(Resume r, Object searchKey) {
+        storageMap.put(r.getUuid(), r);
+    }
+
+    @Override
+    protected Resume getElement(Object searchKey) {
+        return storageMap.get(searchKey);
+    }
+
+    @Override
+    protected void deleteElement(Object searchKey) {
+        storageMap.remove(searchKey);
     }
 
     @Override
@@ -23,42 +59,5 @@ public class MapStorage extends AbstractStorage {
     @Override
     public int size() {
         return storageMap.size();
-    }
-
-    @Override
-    protected void saveElement(Resume r) {
-        storageMap.put(r.getUuid(), r);
-    }
-
-    @Override
-    protected void insertElement(Resume r, Object index) {
-//        storageMap.put(r.getUuid(), r);
-        storageMap.put((String) index, r);
-    }
-
-    @Override
-    protected Resume getElement(String uuid) {
-        return storageMap.get(uuid);
-    }
-
-    @Override
-    protected void deleteElement(String uuid) {
-        storageMap.remove(uuid);
-    }
-
-    @Override
-    protected String getIndex(String uuid) {
-        String index = null;
-        for (String key : storageMap.keySet()) {
-            if (uuid.equals(key)) {
-                index = key;
-            }
-        }
-        return index;
-    }
-
-    @Override
-    protected boolean isContains(Object index) {
-        return index != null;
     }
 }
