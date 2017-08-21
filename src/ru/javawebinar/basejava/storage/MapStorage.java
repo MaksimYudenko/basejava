@@ -10,18 +10,20 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected String getKey(String uuid) {
-        String index = null;
+       /* String index = null;
         for (String key : storageMap.keySet()) {
             if (uuid.equals(key)) {
                 index = key;
             }
         }
-        return index;
+        return index;*/
+        return uuid;
     }
 
     @Override
     protected boolean isContains(Object searchKey) {
-        return searchKey != null;
+        //   return searchKey != null;
+        return false;
     }
 
     @Override
