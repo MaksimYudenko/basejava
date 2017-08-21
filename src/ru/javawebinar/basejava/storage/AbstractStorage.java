@@ -6,39 +6,36 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    private Object key;
-    private String uuid;
-
     protected abstract Object getKey(String uuid);
 
     protected abstract boolean isContains(Object searchKey);
 
-    private boolean isResumeExist(String id) {
-        uuid = id;
-        key = getKey(uuid);
-        return isContains(key);
-    }
-
     public void update(Resume r) {
-        if (isResumeExist(r.getUuid())) {
+        String uuid = r.getUuid();
+        Object key = getKey(uuid);
+        if (isContains(key)) {
             updateElement(r, key);
         } else throw new NotExistStorageException(uuid);
     }
 
     public void save(Resume r) {
-        if (isResumeExist(r.getUuid())) {
+        String uuid = r.getUuid();
+        Object key = getKey(uuid);
+        if (isContains(key)) {
             throw new ExistStorageException(uuid);
         } else saveElement(r, key);
     }
 
     public Resume get(String uuid) {
-        if (isResumeExist(uuid)) {
+        Object key = getKey(uuid);
+        if (isContains(key)) {
             return getElement(key);
         } else throw new NotExistStorageException(uuid);
     }
 
     public void delete(String uuid) {
-        if (isResumeExist(uuid)) {
+        Object key = getKey(uuid);
+        if (isContains(key)) {
             deleteElement(key);
         } else throw new NotExistStorageException(uuid);
     }
