@@ -4,7 +4,9 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-public abstract class AbstractStorage implements Storage {
+import java.util.Comparator;
+
+public abstract class AbstractStorage implements Storage, Comparator<Resume> {
 
     protected abstract Object getKey(String uuid);
 
@@ -49,4 +51,11 @@ public abstract class AbstractStorage implements Storage {
     protected abstract Resume getElement(Object searchKey);
 
     protected abstract void deleteElement(Object searchKey);
+
+    static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName);
+
+    @Override
+    public int compare(Resume o1, Resume o2) {
+        return o1.getFullName().compareTo(o2.getFullName());
+    }
 }

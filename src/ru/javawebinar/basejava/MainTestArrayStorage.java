@@ -12,6 +12,10 @@ public class MainTestArrayStorage {
         Resume r2 = new Resume("uuid2");
         Resume r3 = new Resume("uuid3");
 
+        r1.setFullName("Petr_Sidorov (resume1)");
+        r2.setFullName("Ivan_Petrov (resume2)");
+        r3.setFullName("Sidor_Ivanoff (resume3)");
+
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
@@ -34,8 +38,8 @@ public class MainTestArrayStorage {
 
     private static void printAll() {
         System.out.println("\nGet All");
-        for (Resume r : ARRAY_STORAGE.getAll()) {
-            System.out.println(r);
+        for (Resume r : ARRAY_STORAGE.getAllSorted()) {
+            System.out.println(r.getFullName());
         }
     }
 }
