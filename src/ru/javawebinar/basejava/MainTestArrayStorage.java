@@ -4,7 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.storage.*;
 
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new ListStorage();
+    private static final Storage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
 
@@ -22,7 +22,6 @@ public class MainTestArrayStorage {
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-
 //        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
         printAll();
         System.out.println();
