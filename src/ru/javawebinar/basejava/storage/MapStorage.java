@@ -2,15 +2,18 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
 
     private Map<String, Resume> storageMap = new HashMap<>();
 
     @Override
-    protected Integer getKey(String uuid) {
-        return uuid.hashCode();
+    protected Object getKey(String uuid) {
+        return new Resume(uuid);
     }
 
     @Override
