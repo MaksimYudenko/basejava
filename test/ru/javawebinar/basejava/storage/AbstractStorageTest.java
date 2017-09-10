@@ -32,14 +32,10 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
-        RESUME_1.setFullName(FULLNAME_1);
-        RESUME_2.setFullName(FULLNAME_2);
-        RESUME_3.setFullName(FULLNAME_3);
-        RESUME_4.setFullName(FULLNAME_4);
+        RESUME_1 = new Resume(UUID_1, FULLNAME_1);
+        RESUME_2 = new Resume(UUID_2, FULLNAME_2);
+        RESUME_3 = new Resume(UUID_3, FULLNAME_3);
+        RESUME_4 = new Resume(UUID_4, FULLNAME_4);
     }
 
     AbstractStorageTest(Storage storage) {

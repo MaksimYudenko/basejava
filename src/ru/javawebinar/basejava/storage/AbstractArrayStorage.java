@@ -54,14 +54,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size--;
     }
 
-    protected abstract void fillDeletedElement(int index);
-
     @Override
-    public List<Resume> getAllSorted() {
-        List<Resume> list = Arrays.asList(storage).subList(0, size);
-        list.sort(RESUME_COMPARATOR);
-        return list;
+    protected List<Resume> getList() {
+        return Arrays.asList(storage).subList(0, size);
     }
+
+    protected abstract void fillDeletedElement(int index);
 
     @Override
     public int size() {

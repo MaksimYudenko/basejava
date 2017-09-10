@@ -4,18 +4,13 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.storage.*;
 
 public class MainTestArrayStorage {
-    private static final Storage ARRAY_STORAGE = new MapStorage();
+    private static final Storage ARRAY_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
 
-        Resume r1 = new Resume("uuid1");
-        Resume r2 = new Resume("uuid2");
-        Resume r3 = new Resume("uuid3");
-
-        r1.setFullName("Petr_Sidorov (resume1)");
-        r2.setFullName("Ivan_Petrov (resume2)");
-        r3.setFullName("Sidor_Ivanoff (resume3)");
-
+        Resume r1 = new Resume("uuid1", "Petr_Sidorov");
+        Resume r2 = new Resume("uuid2", "Ivan_Petrov");
+        Resume r3 = new Resume("uuid3", "Sidor_Ivanoff");
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
@@ -31,14 +26,13 @@ public class MainTestArrayStorage {
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
-
         System.out.println("Size: " + ARRAY_STORAGE.size());
     }
 
     private static void printAll() {
         System.out.println("\nGet All");
         for (Resume r : ARRAY_STORAGE.getAllSorted()) {
-            System.out.println(r.getFullName());
+            System.out.println(r);
         }
     }
 }
