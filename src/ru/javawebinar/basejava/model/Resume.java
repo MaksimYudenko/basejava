@@ -8,11 +8,6 @@ public class Resume {
 
     private String fullName;
 
-
-    public Resume() {
-        this(UUID.randomUUID().toString(), "noName" + UUID.randomUUID().toString());
-    }
-
     public Resume(String uuid) {
         this.uuid = uuid;
         this.fullName = UUID.randomUUID().toString();
@@ -48,9 +43,4 @@ public class Resume {
     public String toString() {
         return "ID is " + uuid + ", fullName is " + fullName;
     }
-
-    /*@Override
-    public int compareTo(Resume o) {
-        return fullName.compareTo(o.fullName);
-    }*/
 }

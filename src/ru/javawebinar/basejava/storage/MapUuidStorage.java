@@ -38,12 +38,14 @@ public class MapUuidStorage extends AbstractStorage {
 
     @Override
     protected Resume getElement(Object searchKey) {
-        return storageMap.get(searchKey);
+        String getElement = (String) searchKey;
+        return storageMap.get(getElement);
     }
 
     @Override
     protected void deleteElement(Object searchKey) {
-        storageMap.remove(searchKey);
+        String removeElement = (String) searchKey;
+        storageMap.remove(removeElement);
     }
 
     @Override

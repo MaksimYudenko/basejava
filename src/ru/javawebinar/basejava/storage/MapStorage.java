@@ -15,7 +15,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isContains(Object searchKey) {
-        return storageMap.containsValue(searchKey);
+        return searchKey != null;
     }
 
     @Override
