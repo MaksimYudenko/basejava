@@ -2,59 +2,53 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class MapUuidStorage extends AbstractStorage {
-
-    private Map<String, Resume> storageMap = new HashMap<>();
+public class MapUuidStorage extends AbstractStorage<String> {
+    private Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected String getKey(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isContains(Object searchKey) {
-        return storageMap.containsKey(searchKey.toString());
+    protected void doUpdate(Resume r, String uuid) {
+        map.put(uuid, r);
+    }
+
+    @Override
+    protected boolean isExist(String uuid) {
+        return map.containsKey(uuid);
+    }
+
+    @Override
+    protected void doSave(Resume r, String uuid) {
+        map.put(uuid, r);
+    }
+
+    @Override
+    protected Resume doGet(String uuid) {
+        return map.get(uuid);
+    }
+
+    @Override
+    protected void doDelete(String uuid) {
+        map.remove(uuid);
     }
 
     @Override
     public void clear() {
-        storageMap.clear();
+        map.clear();
     }
 
     @Override
-    protected void updateElement(Resume r, Object searchKey) {
-        storageMap.put((String) searchKey, r);
-    }
-
-    @Override
-    protected void saveElement(Resume r, Object searchKey) {
-        storageMap.put((String) searchKey, r);
-    }
-
-    @Override
-    protected Resume getElement(Object searchKey) {
-        String getElement = (String) searchKey;
-        return storageMap.get(getElement);
-    }
-
-    @Override
-    protected void deleteElement(Object searchKey) {
-        String removeElement = (String) searchKey;
-        storageMap.remove(removeElement);
-    }
-
-    @Override
-    protected List<Resume> getList() {
-        return new ArrayList<>(storageMap.values());
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
     public int size() {
-        return storageMap.size();
+        return map.size();
     }
 }

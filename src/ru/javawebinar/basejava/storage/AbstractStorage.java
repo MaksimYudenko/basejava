@@ -4,68 +4,76 @@ import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
-public abstract class AbstractStorage implements Storage, Comparator<Resume> {
+public abstract class AbstractStorage<SK> implements Storage {
 
-    protected abstract Object getKey(String uuid);
+    //    protected final Logger LOG = Logger.getLogger(getClass().getName());
+    private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
-    protected abstract boolean isContains(Object searchKey);
+    protected abstract SK getSearchKey(String uuid);
+
+    protected abstract void doUpdate(Resume r, SK searchKey);
+
+    protected abstract boolean isExist(SK searchKey);
+
+    protected abstract void doSave(Resume r, SK searchKey);
+
+    protected abstract Resume doGet(SK searchKey);
+
+    protected abstract void doDelete(SK searchKey);
+
+    protected abstract List<Resume> doCopyAll();
 
     public void update(Resume r) {
-        Object key = containsKey(r.getUuid());
-        updateElement(r, key);
+        LOG.info("Update " + r);
+        SK searchKey = getExistedSearchKey(r.getUuid());
+        doUpdate(r, searchKey);
     }
 
     public void save(Resume r) {
-        Object key = notContainsKey(r.getUuid());
-        saveElement(r, key);
-    }
-
-    public Resume get(String uuid) {
-        Object key = containsKey(uuid);
-        return getElement(key);
+        LOG.info("Save " + r);
+        SK searchKey = getNotExistedSearchKey(r.getUuid());
+        doSave(r, searchKey);
     }
 
     public void delete(String uuid) {
-        Object key = containsKey(uuid);
-        deleteElement(key);
+        LOG.info("Delete " + uuid);
+        SK searchKey = getExistedSearchKey(uuid);
+        doDelete(searchKey);
     }
 
-    public List<Resume> getAllSorted() {
-        List<Resume> list = getList();
-        list.sort(RESUME_COMPARATOR);
-        return list;
+    public Resume get(String uuid) {
+        LOG.info("Get " + uuid);
+        SK searchKey = getExistedSearchKey(uuid);
+        return doGet(searchKey);
     }
 
-    private Object containsKey(String uuid) {
-        Object key = getKey(uuid);
-        if (!isContains(key)) throw new NotExistStorageException(uuid);
-        return key;
+    private SK getExistedSearchKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
+        if (!isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " not exist");
+            throw new NotExistStorageException(uuid);
+        }
+        return searchKey;
     }
 
-    private Object notContainsKey(String uuid) {
-        Object key = getKey(uuid);
-        if (isContains(key)) throw new ExistStorageException(uuid);
-        return key;
+    private SK getNotExistedSearchKey(String uuid) {
+        SK searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            LOG.warning("Resume " + uuid + " already exist");
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
     }
-
-    protected abstract void updateElement(Resume r, Object searchKey);
-
-    protected abstract void saveElement(Resume r, Object searchKey);
-
-    protected abstract Resume getElement(Object searchKey);
-
-    protected abstract void deleteElement(Object searchKey);
-
-    protected abstract List<Resume> getList();
-
-    static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName);
 
     @Override
-    public int compare(Resume o1, Resume o2) {
-        int result = o1.getFullName().compareTo(o2.getFullName());
-        return result != 0 ? result : o1.getUuid().compareTo(o2.getUuid());
+    public List<Resume> getAllSorted() {
+        LOG.info("getAllSorted");
+        List<Resume> list = doCopyAll();
+        Collections.sort(list);
+        return list;
     }
 }

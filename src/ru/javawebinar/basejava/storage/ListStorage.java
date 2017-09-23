@@ -3,62 +3,58 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
-
-    private List<Resume> storageList = new ArrayList<>();
+public class ListStorage extends AbstractStorage<Integer> {
+    private List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Object getKey(String uuid) {
-        int index = -1;
-        for (Resume r : storageList) {
-            if (uuid.equals(r.getUuid()))
-                index = storageList.indexOf(r);
+    protected Integer getSearchKey(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
         }
-        return index;
+        return null;
     }
 
     @Override
-    protected boolean isContains(Object searchKey) {
-        return (Integer) searchKey >= 0;
+    protected boolean isExist(Integer searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected void doUpdate(Resume r, Integer searchKey) {
+        list.set(searchKey, r);
+    }
+
+    @Override
+    protected void doSave(Resume r, Integer searchKey) {
+        list.add(r);
+    }
+
+    @Override
+    protected Resume doGet(Integer searchKey) {
+        return list.get(searchKey);
+    }
+
+    @Override
+    protected void doDelete(Integer searchKey) {
+        list.remove(searchKey.intValue());
     }
 
     @Override
     public void clear() {
-        storageList.clear();
+        list.clear();
     }
 
     @Override
-    protected void updateElement(Resume r, Object searchKey) {
-        storageList.set((Integer) searchKey, r);
-    }
-
-    @Override
-    protected void saveElement(Resume r, Object searchKey) {
-        storageList.add(r);
-    }
-
-    @Override
-    protected Resume getElement(Object searchKey) {
-        return storageList.get((Integer) searchKey);
-    }
-
-    @Override
-    protected void deleteElement(Object searchKey) {
-        int index = (Integer) searchKey;
-        storageList.remove(index);
-    }
-
-    @Override
-    protected List<Resume> getList() {
-        return storageList;
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(list);
     }
 
     @Override
     public int size() {
-        return storageList.size();
+        return list.size();
     }
 }
