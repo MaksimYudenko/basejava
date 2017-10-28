@@ -10,7 +10,7 @@ public class ListSection extends Section {
         this.block = block;
     }
 
-    public List<String> getItems() {
+    public List<String> getBlock() {
         return block;
     }
 }
