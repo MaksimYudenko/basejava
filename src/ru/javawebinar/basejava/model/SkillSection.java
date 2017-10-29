@@ -1,20 +1,16 @@
 package ru.javawebinar.basejava.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SkillSection extends Section {
 
-    private Map<String, Map<String, List<String>>> organizations;
+    private List<Organization> organizations;
 
-    public SkillSection(String orgName, String period, List<String> experience) {
-        Map<String, List<String>> orgExperience = new HashMap<>();
-        orgExperience.put(period, experience);
-        organizations.put(orgName, orgExperience);
+    public SkillSection(List<Organization> organizations) {
+        this.organizations = organizations;
     }
 
-    public Map<String, Map<String, List<String>>> getOrganizations() {
+    public List<Organization> getOrganizations() {
         return organizations;
     }
 
