@@ -3,7 +3,7 @@ package ru.javawebinar.basejava;
 import ru.javawebinar.basejava.model.Resume;
 
 public class MainModel {
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Resume resume = new Resume("ID", "FullName");
         Resume.ResumeContacts rc = resume.createResumeContacts();
         Resume.ResumeSections rs = resume.createResumeSections();
@@ -21,11 +21,11 @@ public class MainModel {
         rs.setEducation("educationInfo");
         rs.setTypesMap();
         System.out.println(rs);
-       /* System.out.println(rc.getContacts("address"));
+       *//* System.out.println(rc.getContacts("address"));
         System.out.println(rc.getContacts("webSite"));
         System.out.println(rc.getContacts("web"));
         System.out.println(rc.getFields());
         System.out.println();
-        System.out.println(rs.getSectionNames());*/
-    }
+        System.out.println(rs.getSectionNames());*//*
+    }*/
 }

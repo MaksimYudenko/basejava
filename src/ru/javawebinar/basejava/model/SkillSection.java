@@ -14,4 +14,11 @@ public class SkillSection extends Section {
         return organizations;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Organization s : organizations)
+            sb.append(s.getName()).append(" - ").append(s.getPeriod().toString()).append(". ");
+        return sb.toString();
+    }
 }

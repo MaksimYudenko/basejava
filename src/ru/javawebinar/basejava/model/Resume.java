@@ -28,6 +28,10 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
+
     public void setSection(SectionType section, Section info) {
         sections.put(section, info);
     }

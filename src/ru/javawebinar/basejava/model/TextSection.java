@@ -11,4 +11,9 @@ public class TextSection extends Section {
     public String getText() {
         return text;
     }
+
+    @Override
+    public String toString() {
+        return text;
+    }
 }
