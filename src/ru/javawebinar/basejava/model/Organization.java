@@ -31,8 +31,11 @@ public class Organization {
     public void addWorkPeriod(LocalDate startDateAdd, LocalDate endDateAdd) {
         Objects.requireNonNull(startDate, "startDate must not be null");
         Objects.requireNonNull(endDate, "endDate must not be null");
-        workPeriod.put(startDate, endDate);
-        workPeriod.put(startDateAdd, endDateAdd);
+        if (!workPeriod.containsKey(startDate)) {
+            workPeriod.put(startDate, endDate);
+        } else {
+            workPeriod.put(startDateAdd, endDateAdd);
+        }
     }
 
     protected Map<LocalDate, LocalDate> getWorkPeriod() {
