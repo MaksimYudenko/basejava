@@ -3,10 +3,6 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * gkislin
- * 19.07.2016
- */
 public class OrganizationSection extends Section {
     private final List<Organization> organizations;
 
@@ -39,4 +35,5 @@ public class OrganizationSection extends Section {
     public String toString() {
         return organizations.toString();
     }
+
 }

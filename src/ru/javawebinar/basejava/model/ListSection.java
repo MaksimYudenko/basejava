@@ -3,10 +3,6 @@ package ru.javawebinar.basejava.model;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * gkislin
- * 14.07.2016
- */
 public class ListSection extends Section {
     private final List<String> items;
 
@@ -39,5 +35,5 @@ public class ListSection extends Section {
     public int hashCode() {
         return items.hashCode();
     }
+    
 }
-

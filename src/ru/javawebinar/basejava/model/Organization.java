@@ -3,10 +3,6 @@ package ru.javawebinar.basejava.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * gkislin
- * 19.07.2016
- */
 public class Organization {
     private final Link homePage;
 
@@ -15,7 +11,8 @@ public class Organization {
     private final String title;
     private final String description;
 
-    public Organization(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+    public Organization(String name, String url, LocalDate startDate,
+                        LocalDate endDate, String title, String description) {
         Objects.requireNonNull(startDate, "startDate must not be null");
         Objects.requireNonNull(endDate, "endDate must not be null");
         Objects.requireNonNull(title, "title must not be null");
@@ -37,7 +34,8 @@ public class Organization {
         if (!startDate.equals(that.startDate)) return false;
         if (!endDate.equals(that.endDate)) return false;
         if (!title.equals(that.title)) return false;
-        return description != null ? description.equals(that.description) : that.description == null;
+        return description != null ? description.equals(that.description) :
+                that.description == null;
 
     }
 
@@ -61,4 +59,5 @@ public class Organization {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }
