@@ -1,6 +1,8 @@
 package ru.javawebinar.basejava.model;
 
-public abstract class Section {
-
-
+/**
+ * gkislin
+ * 19.07.2016
+ */
+abstract public class Section {
 }
