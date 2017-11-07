@@ -1,13 +1,18 @@
 package ru.javawebinar.basejava.model;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Organization {
     private final Link homePage;
 
     private final LocalDate startDate;
     private final LocalDate endDate;
+    private Map<LocalDate, LocalDate> workPeriod = new TreeMap<>();
     private final String title;
     private final String description;
 
@@ -21,6 +26,17 @@ public class Organization {
         this.endDate = endDate;
         this.title = title;
         this.description = description;
+    }
+
+    public void addWorkPeriod(LocalDate startDateAdd, LocalDate endDateAdd) {
+        Objects.requireNonNull(startDate, "startDate must not be null");
+        Objects.requireNonNull(endDate, "endDate must not be null");
+        workPeriod.put(startDate, endDate);
+        workPeriod.put(startDateAdd, endDateAdd);
+    }
+
+    protected Map<LocalDate, LocalDate> getWorkPeriod() {
+        return workPeriod;
     }
 
     @Override
