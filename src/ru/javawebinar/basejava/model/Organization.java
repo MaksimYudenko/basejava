@@ -39,6 +39,7 @@ public class Organization {
     }
 
     protected Map<LocalDate, LocalDate> getWorkPeriod() {
+        if (workPeriod.isEmpty()) workPeriod.put(startDate, endDate);
         return workPeriod;
     }
 
