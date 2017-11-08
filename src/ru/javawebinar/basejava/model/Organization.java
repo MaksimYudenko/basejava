@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.model;
 
-import sun.reflect.generics.tree.Tree;
-
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +34,6 @@ public class Organization {
     }
 
     protected Map<LocalDate, LocalDate> getWorkPeriod() {
-        if (workPeriod.isEmpty()) workPeriod.put(startDate, endDate);
         return workPeriod;
     }
 
