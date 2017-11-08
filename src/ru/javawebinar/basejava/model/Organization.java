@@ -26,16 +26,13 @@ public class Organization {
         this.endDate = endDate;
         this.title = title;
         this.description = description;
+        workPeriod.put(startDate, endDate);
     }
 
-    public void addWorkPeriod(LocalDate startDateAdd, LocalDate endDateAdd) {
-        Objects.requireNonNull(startDate, "startDate must not be null");
-        Objects.requireNonNull(endDate, "endDate must not be null");
-        if (!workPeriod.containsKey(startDate)) {
-            workPeriod.put(startDate, endDate);
-        } else {
-            workPeriod.put(startDateAdd, endDateAdd);
-        }
+    public void addBusyPeriod(LocalDate startDateAdd, LocalDate endDateAdd) {
+        Objects.requireNonNull(startDateAdd, "startDateAdd must not be null");
+        Objects.requireNonNull(endDateAdd, "endDateAdd must not be null");
+        workPeriod.put(startDateAdd, endDateAdd);
     }
 
     protected Map<LocalDate, LocalDate> getWorkPeriod() {
@@ -71,13 +68,18 @@ public class Organization {
 
     @Override
     public String toString() {
-        return "Organization{" +
-                "homePage=" + homePage +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        String description1 = "Organization{" + "homePage=" + homePage;
+        String period = ", startDate=" + startDate + ", endDate=" + endDate;
+        String description2 = ", title='" + title + '\'' + ", description='"
+                + description + '\'' + '}' + "\n";
+        if (!workPeriod.isEmpty()) {
+            StringBuilder duration = new StringBuilder();
+            for (Map.Entry wp : getWorkPeriod().entrySet()) {
+                duration.append(", startDate=").append(wp.getKey()).
+                        append(", endDate=").append(wp.getValue());
+            }
+            period = duration.toString();
+        }
+        return description1 + period + description2;
     }
-
 }
