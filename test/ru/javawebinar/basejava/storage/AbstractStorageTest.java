@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
-    protected Storage storage;
+    Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -32,8 +32,76 @@ public abstract class AbstractStorageTest {
         RESUME_4 = new Resume(UUID_4, "Name4");
     }
 
-    protected AbstractStorageTest(Storage storage) {
+    AbstractStorageTest(Storage storage) {
         this.storage = storage;
+    }
+
+    @Test
+    public void setPhoneNumber() {
+        RESUME_1.setContact(ContactType.PHONE, "1234567");
+        RESUME_2.setContact(ContactType.PHONE, "2234567");
+        RESUME_3.setContact(ContactType.PHONE, "3234567");
+        RESUME_4.setContact(ContactType.PHONE, "4234567");
+        assertEquals(RESUME_1.getContact(ContactType.PHONE), "1234567");
+    }
+
+    @Test
+    public void setMail() {
+        RESUME_1.setContact(ContactType.MAIL, "yudenkomaksim@gmail.com");
+        RESUME_2.setContact(ContactType.MAIL, "abc@gmail.com");
+        RESUME_3.setContact(ContactType.MAIL, "def@gmail.com");
+        RESUME_4.setContact(ContactType.MAIL, "ghi@gmail.com");
+        assertEquals(RESUME_1.getContact(ContactType.MAIL), "yudenkomaksim@gmail.com");
+    }
+
+    @Test
+    public void setPersonal() {
+        RESUME_1.setSection(SectionType.PERSONAL, DataSetter.setPersonalSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.PERSONAL, DataSetter.setPersonalSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.PERSONAL, DataSetter.setPersonalSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.PERSONAL, DataSetter.setPersonalSection(RESUME_4.getUuid()));
+        assertEquals(RESUME_1.getSection(SectionType.PERSONAL).toString(), "uuid1 I'm good at studying )");
+    }
+
+    @Test
+    public void setObjective() {
+        RESUME_1.setSection(SectionType.OBJECTIVE, DataSetter.setObjectiveSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.OBJECTIVE, DataSetter.setObjectiveSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.OBJECTIVE, DataSetter.setObjectiveSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.OBJECTIVE, DataSetter.setObjectiveSection(RESUME_4.getUuid()));
+        assertEquals(RESUME_1.getSection(SectionType.OBJECTIVE).toString(), "uuid1 Now - student BaseJava course.");
+    }
+
+    @Test
+    public void setAchievement() {
+        RESUME_1.setSection(SectionType.ACHIEVEMENT, DataSetter.setAchievementSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.ACHIEVEMENT, DataSetter.setAchievementSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.ACHIEVEMENT, DataSetter.setAchievementSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.ACHIEVEMENT, DataSetter.setAchievementSection(RESUME_4.getUuid()));
+    }
+
+    @Test
+    public void setQualifications() {
+        RESUME_1.setSection(SectionType.QUALIFICATIONS, DataSetter.setQualificationsSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.QUALIFICATIONS, DataSetter.setQualificationsSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.QUALIFICATIONS, DataSetter.setQualificationsSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.QUALIFICATIONS, DataSetter.setQualificationsSection(RESUME_4.getUuid()));
+    }
+
+    @Test
+    public void setWorkExperience() {
+        RESUME_1.setSection(SectionType.EXPERIENCE, DataSetter.setWorkExperienceSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.EXPERIENCE, DataSetter.setWorkExperienceSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.EXPERIENCE, DataSetter.setWorkExperienceSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.EXPERIENCE, DataSetter.setWorkExperienceSection(RESUME_4.getUuid()));
+    }
+
+    @Test
+    public void setStudyExperience() {
+        RESUME_1.setSection(SectionType.EDUCATION, DataSetter.setStudyExperienceSection(RESUME_1.getUuid()));
+        RESUME_2.setSection(SectionType.EDUCATION, DataSetter.setStudyExperienceSection(RESUME_2.getUuid()));
+        RESUME_3.setSection(SectionType.EDUCATION, DataSetter.setStudyExperienceSection(RESUME_3.getUuid()));
+        RESUME_4.setSection(SectionType.EDUCATION, DataSetter.setStudyExperienceSection(RESUME_4.getUuid()));
     }
 
     @Before
