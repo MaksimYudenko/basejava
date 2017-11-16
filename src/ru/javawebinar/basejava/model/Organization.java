@@ -1,16 +1,13 @@
 package ru.javawebinar.basejava.model;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Objects;
-import java.util.TreeMap;
 
 public class Organization {
-    private final Link homePage;
 
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private Map<LocalDate, LocalDate> workPeriod = new TreeMap<>();
+    private final Link homePage;
+    private final LocalDate startDate, endDate;
+    private LocalDate startDateAdd, endDateAdd;
     private final String title;
     private final String description;
 
@@ -24,17 +21,14 @@ public class Organization {
         this.endDate = endDate;
         this.title = title;
         this.description = description;
-        workPeriod.put(startDate, endDate);
+//        workPeriod.put(startDate, endDate);
     }
 
     public void addBusyPeriod(LocalDate startDateAdd, LocalDate endDateAdd) {
         Objects.requireNonNull(startDateAdd, "startDateAdd must not be null");
         Objects.requireNonNull(endDateAdd, "endDateAdd must not be null");
-        workPeriod.put(startDateAdd, endDateAdd);
-    }
-
-    protected Map<LocalDate, LocalDate> getWorkPeriod() {
-        return workPeriod;
+        this.startDateAdd = startDateAdd;
+        this.endDateAdd = endDateAdd;
     }
 
     @Override
@@ -66,17 +60,17 @@ public class Organization {
     @Override
     public String toString() {
         String description1 = "Organization{" + "homePage=" + homePage;
-        String period = ", startDate=" + startDate + ", endDate=" + endDate;
+        String firstPeriod = ", startDate=" + startDate + ", endDate=" + endDate;
+        String otherPeriod = "";
         String description2 = ", title='" + title + '\'' + ", description='"
                 + description + '\'' + '}' + "\n";
-        if (!workPeriod.isEmpty()) {
+        if (startDateAdd != null && endDateAdd != null) {
             StringBuilder duration = new StringBuilder();
-            for (Map.Entry wp : getWorkPeriod().entrySet()) {
-                duration.append(", startDate=").append(wp.getKey()).
-                        append(", endDate=").append(wp.getValue());
-            }
-            period = duration.toString();
+            duration.append(", startDate=").append(startDateAdd).
+                    append(", endDate=").append(endDateAdd);
+            otherPeriod = duration.toString();
         }
-        return description1 + period + description2;
+        return description1 + firstPeriod + otherPeriod + description2;
     }
+
 }

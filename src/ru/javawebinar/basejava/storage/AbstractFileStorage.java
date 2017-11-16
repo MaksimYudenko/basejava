@@ -1,14 +1,17 @@
 package ru.javawebinar.basejava.storage;
 
+import com.sun.istack.internal.NotNull;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
+
     private File directory;
 
     protected AbstractFileStorage(File directory) {
@@ -24,17 +27,25 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
     }
 
+    private static File[] getFilesList(File directory) {
+        File[] fl = new File[(int) directory.length()];
+        if (directory.listFiles() != null) fl = directory.listFiles();
+        return fl;
+    }
+
+    private File[] filesList = getFilesList(directory);
+
     @Override
     public void clear() {
         //directory = new File(directory.getAbsolutePath());
-        for (File f : directory.listFiles()) {
-            f.delete();
+        for (File f : filesList) {
+            if (!f.delete()) System.out.println("Directory is not cleared.");
         }
     }
 
     @Override
     public int size() {
-        return directory.listFiles().length;
+        return filesList.length;
     }
 
     @Override
@@ -59,8 +70,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(Resume r, File file) {
         try {
-            file.createNewFile();
-            doWrite(r, file);
+            if (!file.createNewFile()) System.out.println("File is not saved.");
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
@@ -79,15 +89,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doDelete(File file) {
-        for (File f : directory.listFiles()) {
-            if (f.equals(file)) f.delete();
-        }
+        if (!file.delete()) System.out.println("File is not deleted.");
     }
 
     @Override
     protected List<Resume> doCopyAll() {
-        List<Resume> list = null;
-        for (File f : directory.listFiles()) {
+        List<Resume> list = new ArrayList<>();
+        for (File f : filesList) {
             try {
                 list.add(doRead(f));
             } catch (IOException e) {
@@ -100,4 +108,5 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     abstract void doWrite(Resume r, File file) throws IOException;
 
     abstract Resume doRead(File file) throws IOException;
+
 }
