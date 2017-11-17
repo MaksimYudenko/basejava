@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import com.sun.istack.internal.NotNull;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -27,25 +26,27 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         this.directory = directory;
     }
 
-    private static File[] getFilesList(File directory) {
-        File[] fl = new File[(int) directory.length()];
-        if (directory.listFiles() != null) fl = directory.listFiles();
+    private File[] getFilesList(File directory) {
+        File[] fl;
+        if (directory.listFiles() == null) {
+            throw new StorageException("Directory read error", null);
+        } else {
+            fl = directory.listFiles();
+        }
         return fl;
     }
-
-    private File[] filesList = getFilesList(directory);
 
     @Override
     public void clear() {
         //directory = new File(directory.getAbsolutePath());
-        for (File f : filesList) {
+        for (File f : getFilesList(directory)) {
             if (!f.delete()) System.out.println("Directory is not cleared.");
         }
     }
 
     @Override
     public int size() {
-        return filesList.length;
+        return getFilesList(directory).length;
     }
 
     @Override
@@ -70,7 +71,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doSave(Resume r, File file) {
         try {
-            if (!file.createNewFile()) System.out.println("File is not saved.");
+            if (!file.createNewFile()) {
+                System.out.println("File is not saved.");
+            } else {
+                doWrite(r, file);
+            }
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
@@ -95,7 +100,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> doCopyAll() {
         List<Resume> list = new ArrayList<>();
-        for (File f : filesList) {
+        for (File f : getFilesList(directory)) {
             try {
                 list.add(doRead(f));
             } catch (IOException e) {
