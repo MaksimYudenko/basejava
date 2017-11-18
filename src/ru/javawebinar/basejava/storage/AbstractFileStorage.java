@@ -27,13 +27,12 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     }
 
     private File[] getFilesList(File directory) {
-        File[] fl;
-        if (directory.listFiles() == null) {
+        File[] fl = directory.listFiles();
+        if (fl == null) {
             throw new StorageException("Directory read error", null);
         } else {
-            fl = directory.listFiles();
+            return fl;
         }
-        return fl;
     }
 
     @Override
