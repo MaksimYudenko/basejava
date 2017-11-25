@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Objects;
 
 public class MainFile {
+    private static String tabs = "";
 
     public static void main(String[] args) {
         getFiles(new File("."));
@@ -13,11 +14,16 @@ public class MainFile {
         Objects.requireNonNull(file, "file must not be null");
         assert file.listFiles() != null;
         if (file.isDirectory()) {
-            System.out.println(file.getName());
+            System.out.println(tabs + "\t" + file.getName().toUpperCase() + "\\");
             File[] fileList = file.listFiles();
-            if (fileList != null) for (File dir : fileList) getFiles(dir);
+            if (fileList != null) {
+                tabs += "\t";
+                for (File dir : fileList) {
+                    getFiles(dir);
+                }
+            }
         }
-        if (file.isFile()) System.out.println("\t" + file.getName());
+        if (file.isFile()) System.out.println(tabs + file.getName());
     }
 
 }
