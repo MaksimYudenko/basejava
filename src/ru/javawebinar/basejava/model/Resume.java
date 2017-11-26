@@ -1,12 +1,14 @@
 package ru.javawebinar.basejava.model;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Resume implements Comparable<Resume> {
-
+public class Resume implements Comparable<Resume>, Serializable {
+    private static final long serialVersionUID = 1L;
+    // Unique identifier
     private final String uuid;
 
     private final String fullName;
@@ -33,22 +35,17 @@ public class Resume implements Comparable<Resume> {
         return contacts.get(type);
     }
 
-    public void setContact(ContactType contact, String info) {
-        contacts.put(contact, info);
-    }
-
     public Section getSection(SectionType type) {
         return sections.get(type);
     }
 
-    public void setSection(SectionType section, Section info) {
-        sections.put(section, info);
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
     }
 
-    public Map<SectionType, Section> getSections() {
-        return sections;
+    public void addSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
-
 
     @Override
     public boolean equals(Object o) {
