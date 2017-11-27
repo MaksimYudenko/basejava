@@ -37,68 +37,61 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
-            throw new StorageException("Directory read error", null);
-        }
-        return list.length;
+        return directory.getNameCount();
     }
 
     @Override
     protected Path getSearchKey(String uuid) {
-        return new Path(directory, uuid);
+        return Paths.get(String.valueOf(directory.getFileName()), uuid);
     }
 
     @Override
-    protected void doUpdate(Resume r, Path Path) {
+    protected void doUpdate(Resume r, Path path) {
         try {
-            doWrite(r, new BufferedOutputStream(new PathOutputStream(Path)));
+            doWrite(r, new BufferedOutputStream(new FileOutputStream(path.toFile())));
         } catch (IOException e) {
             throw new StorageException("Path write error", r.getUuid(), e);
         }
     }
 
     @Override
-    protected boolean isExist(Path Path) {
-        return Path.exists();
+    protected boolean isExist(Path path) {
+        return path.isAbsolute();
     }
 
     @Override
-    protected void doSave(Resume r, Path Path) {
-        try {
-            Path.createNewPath();
-        } catch (IOException e) {
-            throw new StorageException("Couldn't create Path " + Path.getAbsolutePath(), Path.getName(), e);
-        }
-        doUpdate(r, Path);
+    protected void doSave(Resume r, Path path) {
+        Path newPath = Paths.get(String.valueOf(path));
+        doUpdate(r, newPath);
     }
 
     @Override
-    protected Resume doGet(Path Path) {
+    protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(new PathInputStream(Path)));
+            return doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
         } catch (IOException e) {
-            throw new StorageException("Path read error", Path.getName(), e);
+            throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
     }
 
     @Override
-    protected void doDelete(Path Path) {
-        if (!Path.delete()) {
-            throw new StorageException("Path delete error", Path.getName());
+    protected void doDelete(Path path) {
+        if (!path.isAbsolute()) {
+            throw new StorageException("Path delete error", path.getFileName().toString());
         }
     }
 
     @Override
     protected List<Resume> doCopyAll() {
-        Path[] Paths = directory.listPaths();
-        if (Paths == null) {
+        int pathsCount = directory.getNameCount();
+        if (pathsCount <= 0) {
             throw new StorageException("Directory read error", null);
         }
-        List<Resume> list = new ArrayList<>(Paths.length);
-        for (Path Path : Paths) {
-            list.add(doGet(Path));
+        List<Resume> list = new ArrayList<>(pathsCount);
+        for (int i = 0; i < pathsCount; i++) {
+            list.add(doGet(directory.getName(i)));
         }
         return list;
     }
+
 }
