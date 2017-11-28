@@ -4,10 +4,11 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.io.*;
+import java.nio.file.Path;
 
-public class ObjectStreamPathStorage extends ObjectStreamStorage {
-    protected ObjectStreamPathStorage(File directory) {
-        super(directory);
+public class ObjectStreamPathStorage extends AbstractPathStorage {
+    public ObjectStreamPathStorage(Path path) {
+        super(path.toString());
     }
 
     @Override
