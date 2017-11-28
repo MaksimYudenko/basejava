@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+
     private Path directory;
 
-    protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
+    abstract void doWrite(Resume r, OutputStream os) throws IOException;
 
-    protected abstract Resume doRead(InputStream is) throws IOException;
+    abstract Resume doRead(InputStream is) throws IOException;
 
     protected AbstractPathStorage(String dir) {
         directory = Paths.get(dir);
@@ -42,13 +43,13 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected Path getSearchKey(String uuid) {
-        return Paths.get(String.valueOf(directory.getFileName()), uuid);
+        return directory.resolve(uuid);
     }
 
     @Override
     protected void doUpdate(Resume r, Path path) {
         try {
-            doWrite(r, new BufferedOutputStream(new FileOutputStream(path.toFile())));
+            doWrite(r, new BufferedOutputStream(Files.newOutputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Path write error", r.getUuid(), e);
         }
@@ -56,7 +57,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected boolean isExist(Path path) {
-        return path.isAbsolute();
+        return Files.isRegularFile(path);
     }
 
     @Override
@@ -68,7 +69,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(path.toFile())));
+            return doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Path read error", path.getFileName().toString(), e);
         }
@@ -76,8 +77,10 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
 
     @Override
     protected void doDelete(Path path) {
-        if (!path.isAbsolute()) {
-            throw new StorageException("Path delete error", path.getFileName().toString());
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            throw new StorageException("Delete error", path.getFileName().toString(), e);
         }
     }
 
