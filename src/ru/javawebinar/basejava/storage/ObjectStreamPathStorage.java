@@ -7,8 +7,9 @@ import java.io.*;
 import java.nio.file.Path;
 
 public class ObjectStreamPathStorage extends AbstractPathStorage {
-    public ObjectStreamPathStorage(Path path) {
-        super(path.toString());
+
+    ObjectStreamPathStorage(String path) {
+        super(path);
     }
 
     @Override
@@ -26,4 +27,5 @@ public class ObjectStreamPathStorage extends AbstractPathStorage {
             throw new StorageException("Error read resume", null, e);
         }
     }
+
 }

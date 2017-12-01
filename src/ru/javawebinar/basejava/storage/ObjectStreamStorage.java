@@ -6,7 +6,8 @@ import ru.javawebinar.basejava.model.Resume;
 import java.io.*;
 
 public class ObjectStreamStorage extends AbstractFileStorage {
-    public ObjectStreamStorage(File directory) {
+
+    ObjectStreamStorage(File directory) {
         super(directory);
     }
 
@@ -25,4 +26,5 @@ public class ObjectStreamStorage extends AbstractFileStorage {
             throw new StorageException("Error read resume", null, e);
         }
     }
+
 }
