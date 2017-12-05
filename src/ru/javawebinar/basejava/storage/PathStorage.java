@@ -2,7 +2,6 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
-import ru.javawebinar.basejava.storage.AbstractStorage;
 import ru.javawebinar.basejava.storage.strategy.StorageStrategy;
 
 import java.io.*;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class PathStorage extends AbstractStorage<Path> {
+public class PathStorage extends AbstractStorage<Path> {
 
     private Path directory;
     private StorageStrategy strategy;
@@ -38,7 +37,13 @@ public abstract class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public int size() {
-        return directory.getNameCount();
+        int size;
+        try {
+            size = (int) Files.list(directory).count();
+        } catch (IOException e) {
+            throw new StorageException("size calculation error ", null, e);
+        }
+        return size;
     }
 
     @Override
@@ -62,8 +67,12 @@ public abstract class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected void doSave(Resume r, Path path) {
-        Path newPath = Paths.get(String.valueOf(path));
-        doUpdate(r, newPath);
+        try {
+            Files.createFile(path);
+        } catch (IOException e) {
+            throw new StorageException("Create path error: ", path.toString(), e);
+        }
+        doUpdate(r, path);
     }
 
     @Override
@@ -86,7 +95,7 @@ public abstract class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        int pathsCount = directory.getNameCount();
+        int pathsCount = size();
         if (pathsCount <= 0) {
             throw new StorageException("Directory read error", null);
         }
