@@ -15,7 +15,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\projects\\basejava\\storage");
+   // protected static final File STORAGE_DIR = new File("C:\\projects\\basejava\\storage");
+    protected static final File STORAGE_DIR = new File("G:\\Java\\BaseJava\\src\\ru\\javawebinar\\basejava\\storage\\");
 
     protected Storage storage;
 
@@ -37,8 +38,13 @@ public abstract class AbstractStorageTest {
 
         R1.addContact(ContactType.MAIL, "mail1@ya.ru");
         R1.addContact(ContactType.PHONE, "11111");
-        R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
+
+
+
+
+
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
+        R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.addSection(SectionType.EXPERIENCE,
@@ -52,6 +58,15 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization12", "http://Organization12.ru")));
+
+
+
+
+
+
+
+
+
         R2.addContact(ContactType.SKYPE, "skype2");
         R2.addContact(ContactType.PHONE, "22222");
         R1.addSection(SectionType.EXPERIENCE,
