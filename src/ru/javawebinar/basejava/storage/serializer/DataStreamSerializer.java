@@ -129,23 +129,25 @@ public class DataStreamSerializer implements StreamSerializer {
             case "PERSONAL":
             case "OBJECTIVE":
                 resume.addSection(SectionType.valueOf(sectionType), new TextSection(dis.readUTF()));
+                break;
             case "ACHIEVEMENT":
             case "QUALIFICATIONS":
                 int quantity = dis.readInt();
-                List<String> items = new ArrayList<>(quantity);
+                List<String> items = new ArrayList<>();
                 for (int j = 0; j < quantity; j++) items.add(dis.readUTF());
                 resume.addSection(SectionType.valueOf(sectionType), new ListSection(items));
+                break;
             case "EXPERIENCE":
             case "EDUCATION":
                 quantity = dis.readInt();
-                List<Organization> organizations = new ArrayList<>(quantity);
+                List<Organization> organizations = new ArrayList<>();
                 List<Organization.Position> positions = new ArrayList<>();
                 for (int j = 0; j < quantity; j++) {
                     String name = dis.readUTF();
                     String url = dis.readUTF();
                     Link homePage = new Link(name, url);
-                    Organization organization = new Organization(homePage, positions);
                     int positionQuantity = dis.readInt();
+                    Organization organization = new Organization(homePage, positions);
                     Organization.Position position;
                     for (int k = 0; k < positionQuantity; k++) {
                         LocalDate startDate = localDate(dis.readInt(), dis.readInt());
@@ -157,7 +159,8 @@ public class DataStreamSerializer implements StreamSerializer {
                     }
                     organizations.add(organization);
                 }
-                resume.addSection(SectionType.EXPERIENCE, new OrganizationSection(organizations));
+                resume.addSection(SectionType.valueOf(sectionType), new OrganizationSection(organizations));
+                break;
         }
     }
 
