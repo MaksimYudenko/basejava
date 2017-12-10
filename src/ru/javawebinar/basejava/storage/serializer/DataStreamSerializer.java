@@ -1,6 +1,7 @@
 package ru.javawebinar.basejava.storage.serializer;
 
 import ru.javawebinar.basejava.model.*;
+import ru.javawebinar.basejava.model.Organization.Position;
 import ru.javawebinar.basejava.util.DateUtil;
 
 import java.io.*;
@@ -65,16 +66,14 @@ public class DataStreamSerializer implements StreamSerializer {
 
     private void writeSection(DataOutputStream dos, Map.Entry entry) throws IOException {
         SectionType sectionType = (SectionType) entry.getKey();
+        writeSectionType(dos, sectionType);
         switch (sectionType) {
             case PERSONAL:
             case OBJECTIVE:
-                writeSectionType(dos, sectionType);
-                TextSection textSection = (TextSection) entry.getValue();
-                dos.writeUTF(textSection.getContent());
+                dos.writeUTF(((TextSection) entry.getValue()).getContent());
                 break;
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                writeSectionType(dos, sectionType);
                 ListSection listSection = (ListSection) entry.getValue();
                 writeSize(dos, listSection.getItems());
                 for (String item : listSection.getItems()) {
@@ -83,31 +82,18 @@ public class DataStreamSerializer implements StreamSerializer {
                 break;
             case EXPERIENCE:
             case EDUCATION:
-                writeSectionType(dos, sectionType);
-                OrganizationSection organizationSection = (OrganizationSection) entry.getValue();
-                List<Organization> organizations = organizationSection.getOrganizations();
+                List<Organization> organizations = ((OrganizationSection)
+                        entry.getValue()).getOrganizations();
                 writeSize(dos, organizations);
                 for (Organization org : organizations) {
                     dos.writeUTF(org.getHomePage().getName());
-                    String url = org.getHomePage().getUrl();
-                    if (url.equals("null")) {
-                        dos.writeUTF("");
-                    } else {
-                        dos.writeUTF(url);
-                    }
+                    dos.writeUTF(org.getHomePage().getUrl());
                     writeSize(dos, org.getPositions());
-                    for (Organization.Position position : org.getPositions()) {
-                        String startDateToString = position.getStartDate().toString();
-                        String endDateToString = position.getEndDate().toString();
-                        writeDate(dos, startDateToString);
-                        writeDate(dos, endDateToString);
+                    for (Position position : org.getPositions()) {
+                        writeDate(dos, position.getStartDate().toString());
+                        writeDate(dos, position.getEndDate().toString());
                         dos.writeUTF(position.getTitle());
-                        String description = position.getDescription();
-                        if (description == null) {
-                            dos.writeUTF("");
-                        } else {
-                            dos.writeUTF(description);
-                        }
+                        dos.writeUTF(position.getDescription());
                     }
                 }
                 break;
@@ -128,38 +114,34 @@ public class DataStreamSerializer implements StreamSerializer {
         switch (sectionType) {
             case "PERSONAL":
             case "OBJECTIVE":
-                resume.addSection(SectionType.valueOf(sectionType), new TextSection(dis.readUTF()));
+                resume.addSection(SectionType.valueOf(sectionType)
+                        , new TextSection(dis.readUTF()));
                 break;
             case "ACHIEVEMENT":
             case "QUALIFICATIONS":
-                int quantity = dis.readInt();
-                List<String> items = new ArrayList<>();
+                int quantity = readSize(dis);
+                List<String> items = new ArrayList<>(quantity);
                 for (int j = 0; j < quantity; j++) items.add(dis.readUTF());
                 resume.addSection(SectionType.valueOf(sectionType), new ListSection(items));
                 break;
             case "EXPERIENCE":
             case "EDUCATION":
-                quantity = dis.readInt();
-                List<Organization> organizations = new ArrayList<>();
-                List<Organization.Position> positions = new ArrayList<>();
-                for (int j = 0; j < quantity; j++) {
+                int orgQuantity = readSize(dis);
+                List<Organization> organizations = new ArrayList<>(orgQuantity);
+                for (int j = 0; j < orgQuantity; j++) {
                     String name = dis.readUTF();
                     String url = dis.readUTF();
-                    Link homePage = new Link(name, url);
-                    int positionQuantity = dis.readInt();
-                    Organization organization = new Organization(homePage, positions);
-                    Organization.Position position;
-                    for (int k = 0; k < positionQuantity; k++) {
-                        LocalDate startDate = localDate(dis.readInt(), dis.readInt());
-                        LocalDate endDate = localDate(dis.readInt(), dis.readInt());
-                        String title = dis.readUTF();
-                        String description = dis.readUTF();
-                        position = new Organization.Position(startDate, endDate, title, description);
-                        positions.add(position);
+                    int posQuantity = readSize(dis);
+                    List<Position> positions = new ArrayList<>(posQuantity);
+                    for (int k = 0; k < posQuantity; k++) {
+                        positions.add(new Position(localDate(dis.readInt(),
+                                dis.readInt()), localDate(dis.readInt(),
+                                dis.readInt()), dis.readUTF(), dis.readUTF()));
                     }
-                    organizations.add(organization);
+                    organizations.add(new Organization(new Link(name, url), positions));
                 }
-                resume.addSection(SectionType.valueOf(sectionType), new OrganizationSection(organizations));
+                resume.addSection(SectionType.valueOf(sectionType)
+                        , new OrganizationSection(organizations));
                 break;
         }
     }
