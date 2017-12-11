@@ -90,10 +90,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            String tmp;
-            if (description == null) tmp = "";
-            else tmp = description;
-            this.description = tmp;
+            this.description = Objects.isNull(description) ? "" : description;
         }
 
         public LocalDate getStartDate() {
