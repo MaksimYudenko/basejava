@@ -23,14 +23,6 @@ public class Organization implements Serializable {
     private Link homePage;
     private List<Position> positions = new ArrayList<>();
 
-    public Link getHomePage() {
-        return homePage;
-    }
-
-    public List<Position> getPositions() {
-        return positions;
-    }
-
     public Organization() {
     }
 
@@ -41,6 +33,14 @@ public class Organization implements Serializable {
     public Organization(Link homePage, List<Position> positions) {
         this.homePage = homePage;
         this.positions = positions;
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
     }
 
     @Override
@@ -61,7 +61,6 @@ public class Organization implements Serializable {
     public String toString() {
         return "Organization(" + homePage + "," + positions + ')';
     }
-
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
@@ -90,7 +89,7 @@ public class Organization implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = Objects.isNull(description) ? "" : description;
+            this.description = description == null ? "" : description;
         }
 
         public LocalDate getStartDate() {
