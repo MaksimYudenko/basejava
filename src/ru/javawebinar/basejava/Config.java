@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 public class Config {
@@ -28,5 +30,17 @@ public class Config {
 
     public File getStorageDir() {
         return storageDir;
+    }
+
+    public String getDbUrl() {
+        return props.getProperty("db.url");
+    }
+
+    public String getDbUser() {
+        return props.getProperty("db.user");
+    }
+
+    public String getDbPassword() {
+        return props.getProperty("db.password");
     }
 }
