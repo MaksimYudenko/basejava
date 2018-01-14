@@ -1,6 +1,6 @@
 package ru.javawebinar.basejava.sql;
 
-import ru.javawebinar.basejava.exception.StorageException;
+import ru.javawebinar.basejava.exception.StorageExceptionHandler;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,9 +17,10 @@ public class SqlHelper {
     public <T> T executeSql(String sqlRequest, Executor<T> executor) {
         try (Connection connection = connectionFactory.getConnection();
              PreparedStatement ps = connection.prepareStatement(sqlRequest)) {
-                return executor.execute(ps);
+            return executor.execute(ps);
         } catch (SQLException e) {
-            throw new StorageException(e);
+//            System.out.println("getSQLState - " + e.getSQLState());
+            throw new StorageExceptionHandler(e);
         }
     }
 
