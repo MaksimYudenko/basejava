@@ -6,9 +6,7 @@ import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -53,6 +51,11 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(r.getUuid());
                 }
             }
+            sqlHelper.execute("DELETE  FROM contact WHERE resume_uuid=?", ps -> {
+                ps.setString(1, r.getUuid());
+                ps.execute();
+                return null;
+            });
             enterContact(conn, r);
             return null;
         });
@@ -90,13 +93,17 @@ public class SqlStorage implements Storage {
                 "LEFT JOIN contact c ON r.uuid = c.resume_uuid\n" +
                 "ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
-            List<Resume> resumes = new ArrayList<>();
+            Map<String, Resume> resumes = new HashMap<>();
             while (rs.next()) {
-                Resume r = new Resume(rs.getString("uuid"), rs.getString("full_name"));
+                String uuid = rs.getString("uuid");
+                Resume r = resumes.get(uuid);
+                if (r == null) {
+                    r = new Resume(uuid, rs.getString("full_name"));
+                    resumes.put(uuid, r);
+                }
                 addContact(rs, r);
-                resumes.add(r);
             }
-            return resumes;
+            return new ArrayList<>(resumes.values());
         });
     }
 
