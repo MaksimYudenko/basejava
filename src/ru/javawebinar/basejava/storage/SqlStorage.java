@@ -103,7 +103,10 @@ public class SqlStorage implements Storage {
                 }
                 addContact(rs, r);
             }
-            return new ArrayList<>(resumes.values());
+            List<Resume> resumeList = new ArrayList<>();
+            resumeList.addAll(resumes.values());
+            Collections.sort(resumeList);
+            return resumeList;
         });
     }
 
