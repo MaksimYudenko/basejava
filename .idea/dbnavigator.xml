@@ -20,32 +20,27 @@
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
-    <autoscroll-to-editor value="true" />
+    <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="false" />
-    <loaded-nodes />
+    <show-object-properties value="true" />
+    <loaded-nodes>
+      <connection connection-id="17f9308e-7eca-469c-b051-0f5841305a82">
+        <schema name="public" object-types="function, sequence, table, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="10b3f276-110f-4acf-aece-5ce2c4eeae02">
-      <console name="Connection 1" type="STANDARD" />
-      <console name="resumes" type="STANDARD"><![CDATA[SELECT * FROM resume;
-INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
+    <connection id="17f9308e-7eca-469c-b051-0f5841305a82">
+      <console name="Resume" type="STANDARD" />
     </connection>
-  </component>
-  <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-list connection-id="10b3f276-110f-4acf-aece-5ce2c4eeae02" dataset="pg_catalog.pg_aggregate" active-filter-id="" />
-    <filter-list connection-id="10b3f276-110f-4acf-aece-5ce2c4eeae02" dataset="public.resume" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
-  <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="10b3f276-110f-4acf-aece-5ce2c4eeae02" current-schema="public" />
-  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
-      <group-entries value="false" />
+      <group-entries value="true" />
       <execution-inputs />
     </execution-history>
     <argument-values-cache />
@@ -58,15 +53,13 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces>
-      <mapping database-type="POSTGRES" interface-id="6d03a15b-76b4-45b4-9c6e-f20170138805" />
-    </recently-used-interfaces>
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="10b3f276-110f-4acf-aece-5ce2c4eeae02" active="true">
+      <connection id="17f9308e-7eca-469c-b051-0f5841305a82" active="true">
         <database>
-          <name value="resumes" />
+          <name value="Resume" />
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
@@ -109,7 +102,7 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="true">
+        <object-filters hide-empty-schemas="false">
           <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
@@ -145,7 +138,7 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
       <general>
         <display-mode value="TABBED" />
         <navigation-history-size value="100" />
-        <show-object-details value="true" />
+        <show-object-details value="false" />
       </general>
       <filters>
         <object-type-filter>
@@ -269,11 +262,21 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
           <content-type name="DTD" enabled="true" />
           <content-type name="HTML" enabled="true" />
           <content-type name="XHTML" enabled="true" />
+          <content-type name="CSS" enabled="true" />
           <content-type name="Java" enabled="true" />
           <content-type name="SQL" enabled="true" />
           <content-type name="PL/SQL" enabled="true" />
+          <content-type name="JPA QL" enabled="true" />
+          <content-type name="JavaScript" enabled="true" />
+          <content-type name="JSP" enabled="true" />
+          <content-type name="JSPx" enabled="true" />
           <content-type name="Groovy" enabled="true" />
+          <content-type name="FTL" enabled="true" />
+          <content-type name="TML" enabled="true" />
+          <content-type name="ASP" enabled="true" />
+          <content-type name="VTL" enabled="true" />
           <content-type name="YAML" enabled="true" />
+          <content-type name="Flex" enabled="true" />
           <content-type name="Manifest" enabled="true" />
         </content-types>
       </qualified-text-editor>
@@ -310,7 +313,7 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
             <filter-element type="OBJECT" id="index" selected="true" />
             <filter-element type="OBJECT" id="constraint" selected="true" />
             <filter-element type="OBJECT" id="trigger" selected="true" />
-            <filter-element type="OBJECT" id="synonym" selected="true" />
+            <filter-element type="OBJECT" id="synonym" selected="false" />
             <filter-element type="OBJECT" id="sequence" selected="true" />
             <filter-element type="OBJECT" id="procedure" selected="true" />
             <filter-element type="OBJECT" id="function" selected="true" />
@@ -321,21 +324,21 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
             <filter-element type="OBJECT" id="dblink" selected="true" />
           </user-schema>
           <public-schema>
-            <filter-element type="OBJECT" id="table" selected="true" />
-            <filter-element type="OBJECT" id="view" selected="true" />
-            <filter-element type="OBJECT" id="materialized view" selected="true" />
-            <filter-element type="OBJECT" id="index" selected="true" />
-            <filter-element type="OBJECT" id="constraint" selected="true" />
-            <filter-element type="OBJECT" id="trigger" selected="true" />
-            <filter-element type="OBJECT" id="synonym" selected="true" />
-            <filter-element type="OBJECT" id="sequence" selected="true" />
-            <filter-element type="OBJECT" id="procedure" selected="true" />
-            <filter-element type="OBJECT" id="function" selected="true" />
-            <filter-element type="OBJECT" id="package" selected="true" />
-            <filter-element type="OBJECT" id="type" selected="true" />
-            <filter-element type="OBJECT" id="dimension" selected="true" />
-            <filter-element type="OBJECT" id="cluster" selected="true" />
-            <filter-element type="OBJECT" id="dblink" selected="true" />
+            <filter-element type="OBJECT" id="table" selected="false" />
+            <filter-element type="OBJECT" id="view" selected="false" />
+            <filter-element type="OBJECT" id="materialized view" selected="false" />
+            <filter-element type="OBJECT" id="index" selected="false" />
+            <filter-element type="OBJECT" id="constraint" selected="false" />
+            <filter-element type="OBJECT" id="trigger" selected="false" />
+            <filter-element type="OBJECT" id="synonym" selected="false" />
+            <filter-element type="OBJECT" id="sequence" selected="false" />
+            <filter-element type="OBJECT" id="procedure" selected="false" />
+            <filter-element type="OBJECT" id="function" selected="false" />
+            <filter-element type="OBJECT" id="package" selected="false" />
+            <filter-element type="OBJECT" id="type" selected="false" />
+            <filter-element type="OBJECT" id="dimension" selected="false" />
+            <filter-element type="OBJECT" id="cluster" selected="false" />
+            <filter-element type="OBJECT" id="dblink" selected="false" />
           </public-schema>
           <any-schema>
             <filter-element type="OBJECT" id="table" selected="true" />
@@ -457,10 +460,7 @@ INSERT INTO resume (uuid,full_name) VALUES ('123','Full name');]]></console>
         <target-connection value="ASK" />
       </statement-execution>
       <script-execution>
-        <command-line-interfaces>
-          <value id="31c901b0-d8c5-4e98-b2a2-cb83927d2901" name="PostgreSQL terminal" executable-path="C:/Program Files/PostgreSQL/10/bin/postgres.exe" database-type="POSTGRES" />
-          <value id="6d03a15b-76b4-45b4-9c6e-f20170138805" name="PostgreSQL terminal psql" executable-path="C:/Program Files/PostgreSQL/10/bin/psql.exe" database-type="POSTGRES" />
-        </command-line-interfaces>
+        <command-line-interfaces />
         <execution-timeout value="300" />
       </script-execution>
       <method-execution>
