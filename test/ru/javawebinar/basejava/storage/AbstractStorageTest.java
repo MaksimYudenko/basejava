@@ -5,7 +5,8 @@ import org.junit.Test;
 import ru.javawebinar.basejava.Config;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.*;
+import ru.javawebinar.basejava.model.ContactType;
+import ru.javawebinar.basejava.model.Resume;
 
 import java.io.File;
 import java.util.Arrays;
@@ -39,15 +40,14 @@ public abstract class AbstractStorageTest {
 
         R1.addContact(ContactType.MAIL, "mail1@ya.ru");
         R1.addContact(ContactType.PHONE, "11111");
+
         R4.addContact(ContactType.PHONE, "44444");
         R4.addContact(ContactType.SKYPE, "Skype");
+/*
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
-        R1.addSection(SectionType.ACHIEVEMENT, new TextSection("Achivment11\n Achivment12 \n Achivment13 \n"));
-        R1.addSection(SectionType.QUALIFICATIONS, new TextSection("Java \n SQL \n JavaScript \n"));
-//        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
-//        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
-/*
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(
                         new Organization("Organization11", "http://Organization11.ru",
@@ -94,15 +94,9 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "New Name");
-        R1.addContact(ContactType.MAIL, "mail1@google.com");
-        R1.addContact(ContactType.SKYPE, "NewSkype");
-        R1.addContact(ContactType.MOBILE, "+7 921 222-22-22");
-        R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective2"));
-        R1.addSection(SectionType.PERSONAL, new TextSection("Personal data2"));
-        R1.addSection(SectionType.ACHIEVEMENT, new TextSection("Achivment01\n Achivment02 \n Achivment03 \n"));
-        R1.addSection(SectionType.QUALIFICATIONS, new TextSection("Java2 \n SQL2 \n JavaScript2 \n"));
-//        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment01", "Achivment02", "Achivment03"));
-//        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java2", "SQL2", "JavaScript2"));
+        newResume.addContact(ContactType.MAIL, "mail1@google.com");
+        newResume.addContact(ContactType.SKYPE, "NewSkype");
+        newResume.addContact(ContactType.MOBILE, "+7 921 222-22-22");
         storage.update(newResume);
         assertTrue(newResume.equals(storage.get(UUID_1)));
     }
