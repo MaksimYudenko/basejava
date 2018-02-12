@@ -45,8 +45,8 @@ public abstract class AbstractStorageTest {
 
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
-        R1.addSection(SectionType.ACHIEVEMENT, new TextSection("Achievement11" + "\n" + "Achievement12" + "\n" + "Achievement13" + "\n"));
-        R1.addSection(SectionType.QUALIFICATIONS, new TextSection("Java" + "\n" + "SQL" + "\n" + "JavaScript" + "\n"));
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achievement11", "Achievement12", "Achievement13"));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
 /*
         R1.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(

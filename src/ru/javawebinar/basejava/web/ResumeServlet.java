@@ -42,12 +42,13 @@ public class ResumeServlet extends HttpServlet {
                         "</head>\n" +
                         "<body>\n" +
                         "<section>\n" +
-                        "<table border=\"1\" cellpadding=\"10\" cellspacing=\"0\">\n" +
+                        "<table border=\"5\" cellpadding=\"3\" cellspacing=\"3\">\n" +
                         "    <tr>\n" +
                         "        <th>имя</th>\n" +
                         "        <th>номер телефона</th>\n" +
                         "        <th>e-mail</th>\n" +
                         "        <th>личные качества</th>\n" +
+                        "        <th>квалификация</th>\n" +
                         "    </tr>\n");
         for (Resume resume : storage.getAllSorted()) {
             writer.write(
@@ -56,6 +57,7 @@ public class ResumeServlet extends HttpServlet {
                             "     <td>" + resume.getContact(ContactType.MOBILE) + "</td>\n" +
                             "     <td>" + resume.getContact(ContactType.MAIL) + "</td>\n" +
                             "     <td>" + resume.getSection(SectionType.PERSONAL) + "</td>\n" +
+                            "     <td>" + resume.getSection(SectionType.QUALIFICATIONS) + "</td>\n" +
                             "</tr>\n");
         }
         writer.write("</table>\n" +

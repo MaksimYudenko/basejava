@@ -163,15 +163,21 @@ public class SqlStorage implements Storage {
     }
 
     private void addSection(ResultSet rs, Resume r) throws SQLException {
-        String text = rs.getString("text");
-        if (text != null) {
+        String content = rs.getString("content");
+        if (content != null) {
             SectionType type = SectionType.valueOf(rs.getString("type"));
-            r.addSection(type, new TextSection(text));
+            if (type == SectionType.PERSONAL || type == SectionType.OBJECTIVE) {
+                r.addSection(type, new TextSection(content));
+            }
+            if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
+                String[] s = content.split("\n");
+                r.addSection(type, new ListSection(s));
+            }
         }
     }
 
     private void insertSections(Connection conn, Resume r) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, text) VALUES (?,?,?)")) {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
             for (Map.Entry<SectionType, Section> e : r.getSections().entrySet()) {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, e.getKey().name());
