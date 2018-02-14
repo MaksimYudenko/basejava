@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ResumeServlet extends HttpServlet {
 
@@ -21,6 +23,11 @@ public class ResumeServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {

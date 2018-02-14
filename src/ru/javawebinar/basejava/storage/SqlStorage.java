@@ -14,6 +14,11 @@ public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
+        try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
     }
 
@@ -166,12 +171,20 @@ public class SqlStorage implements Storage {
         String content = rs.getString("content");
         if (content != null) {
             SectionType type = SectionType.valueOf(rs.getString("type"));
-            if (type == SectionType.PERSONAL || type == SectionType.OBJECTIVE) {
-                r.addSection(type, new TextSection(content));
-            }
-            if (type == SectionType.ACHIEVEMENT || type == SectionType.QUALIFICATIONS) {
-                String[] s = content.split("\n");
-                r.addSection(type, new ListSection(s));
+            switch (type) {
+                case PERSONAL:
+                case OBJECTIVE:
+                    r.addSection(type, new TextSection(content));
+                    break;
+                case ACHIEVEMENT:
+                case QUALIFICATIONS:
+                    List<String> list = new ArrayList<>();
+                    String regexp = "\n|\\s|]|\\[|,";
+                    for (String s : content.split(regexp)) {
+                        if (!s.equals("")) list.add(s);
+                    }
+                    r.addSection(type, new ListSection(list));
+                    break;
             }
         }
     }

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -22,11 +22,34 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
-    <loaded-nodes />
+    <show-object-properties value="false" />
+    <loaded-nodes>
+      <connection connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55">
+        <schema name="information_schema" object-types="function, table" />
+        <schema name="pg_catalog" object-types="function, table, view" />
+        <schema name="public" object-types="column, function, table, view" />
+      </connection>
+    </loaded-nodes>
+  </component>
+  <component name="DBNavigator.Project.DatabaseConsoleManager">
+    <connection id="dee32667-2e0b-4ca3-ad28-0fca30c05c55">
+      <console name="resumes" type="STANDARD" />
+    </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" dataset="public.contact" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" dataset="public.section" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" dataset="public.resume" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="information_schema" />
+    <mapping file-url="file://$PROJECT_DIR$/config/populate.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="public" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -44,10 +67,90 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="POSTGRES" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
-    <connections />
+    <connections>
+      <connection id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" active="true">
+        <database>
+          <name value="resumes" />
+          <description value="" />
+          <database-type value="POSTGRES" />
+          <config-type value="BASIC" />
+          <database-version value="10.1" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="DATABASE" />
+          <host value="localhost" />
+          <port value="5432" />
+          <database value="resumes" />
+          <os-authentication value="false" />
+          <empty-password value="false" />
+          <user value="postgres" />
+          <password value="cG9zdGdyZXM=" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <proxy-password value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <details>
+          <charset value="UTF-8" />
+          <session-management value="true" />
+          <ddl-file-binding value="true" />
+          <database-logging value="false" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="true" />
+          <environment-type value="default" />
+          <idle-time-to-disconnect value="30" />
+          <password-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false">
+          <object-type-filter use-master-settings="true">
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+    </connections>
     <browser-settings>
       <general>
         <display-mode value="TABBED" />
@@ -185,12 +288,8 @@
           <content-type name="JSP" enabled="true" />
           <content-type name="JSPx" enabled="true" />
           <content-type name="Groovy" enabled="true" />
-          <content-type name="FTL" enabled="true" />
-          <content-type name="TML" enabled="true" />
           <content-type name="ASP" enabled="true" />
-          <content-type name="VTL" enabled="true" />
           <content-type name="YAML" enabled="true" />
-          <content-type name="Flex" enabled="true" />
           <content-type name="Manifest" enabled="true" />
         </content-types>
       </qualified-text-editor>
@@ -371,7 +470,6 @@
         <debug-execution-timeout value="600" />
         <focus-result value="false" />
         <prompt-execution value="false" />
-        <target-connection value="ASK" />
       </statement-execution>
       <script-execution>
         <command-line-interfaces />
