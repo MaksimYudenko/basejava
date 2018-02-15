@@ -55,6 +55,7 @@ public class ResumeServlet extends HttpServlet {
                         "        <th>номер телефона</th>\n" +
                         "        <th>e-mail</th>\n" +
                         "        <th>личные качества</th>\n" +
+                        "        <th>достижения</th>\n" +
                         "        <th>квалификация</th>\n" +
                         "    </tr>\n");
         for (Resume resume : storage.getAllSorted()) {
@@ -64,6 +65,7 @@ public class ResumeServlet extends HttpServlet {
                             "     <td>" + resume.getContact(ContactType.MOBILE) + "</td>\n" +
                             "     <td>" + resume.getContact(ContactType.MAIL) + "</td>\n" +
                             "     <td>" + resume.getSection(SectionType.PERSONAL) + "</td>\n" +
+                            "     <td>" + resume.getSection(SectionType.ACHIEVEMENT) + "</td>\n" +
                             "     <td>" + resume.getSection(SectionType.QUALIFICATIONS) + "</td>\n" +
                             "</tr>\n");
         }
