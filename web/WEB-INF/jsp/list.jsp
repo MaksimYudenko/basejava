@@ -1,5 +1,5 @@
 <%@ page import="ru.javawebinar.basejava.model.ContactType" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -11,12 +11,12 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
-    <table border="1" cellpadding="8" cellspacing="0">
+    <table border="2" cellpadding="10" cellspacing="0">
         <tr>
             <th>Имя</th>
             <th>Email</th>
-            <th></th>
-            <th></th>
+            <th>Удалить</th>
+            <th>Редактировать</th>
         </tr>
         <c:forEach items="${resumes}" var="resume">
             <jsp:useBean id="resume" type="ru.javawebinar.basejava.model.Resume"/>

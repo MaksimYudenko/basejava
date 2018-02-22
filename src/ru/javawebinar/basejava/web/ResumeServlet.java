@@ -51,6 +51,9 @@ public class ResumeServlet extends HttpServlet {
                     case QUALIFICATIONS:
                         r.setSection(type, new ListSection(value.split("\\n")));
                         break;
+                    case EXPERIENCE:
+                    case EDUCATION:
+                        break;
                 }
             }
         }
