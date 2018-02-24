@@ -42,8 +42,8 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="information_schema" />
     <mapping file-url="file://$PROJECT_DIR$/config/populate.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="information_schema" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />

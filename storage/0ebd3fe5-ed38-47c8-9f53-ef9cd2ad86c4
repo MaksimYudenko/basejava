@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<resume>
+    <uuid>0ebd3fe5-ed38-47c8-9f53-ef9cd2ad86c4</uuid>
+    <fullName>Name2</fullName>
+    <contacts>
+        <entry>
+            <key>PHONE</key>
+            <value>22222</value>
+        </entry>
+        <entry>
+            <key>SKYPE</key>
+            <value>skype2</value>
+        </entry>
+    </contacts>
+    <sections/>
+</resume>
