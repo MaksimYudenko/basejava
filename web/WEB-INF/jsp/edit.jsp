@@ -2,7 +2,8 @@
 <%@ page import="ru.javawebinar.basejava.model.ListSection" %>
 <%@ page import="ru.javawebinar.basejava.model.OrganizationSection" %>
 <%@ page import="ru.javawebinar.basejava.model.SectionType" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="ru.javawebinar.basejava.util.DateUtil" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
@@ -55,17 +56,57 @@
                                items="<%=((OrganizationSection) section).getOrganizations()%>"
                                varStatus="counter">
                         <dl>
-                            <dt>Название</dt>
-                            <dd><input type="text" name='${type}' size=50
+                            <dt>Название учереждения:</dt>
+                            <dd><input type="text" name='${type}' size=100
                                        value="${org.homePage.name}"></dd>
                         </dl>
                         <dl>
-                            <dt>Сайт</dt>
-                            <dd><input type="text" name='${type}url' size=50
+                            <dt>Сайт учереждения:</dt>
+                            <dd><input type="text" name='${type}url' size=100
                                        value="${org.homePage.url}"></dd>
                             </dd>
                         </dl>
                         <br>
+                        <div style="margin-left: 30px">
+                            <c:forEach var="pos" items="${org.positions}">
+                                <jsp:useBean id="pos"
+                                             type="ru.javawebinar.basejava.model.Organization.Position"/>
+                                <dl>
+                                    <dt>Начальная дата:</dt>
+                                    <dd>
+                                        <input type="text"
+                                               name="${type}${counter.index}startDate"
+                                               size=10
+                                               value="<%=DateUtil.format(pos.getStartDate())%>"
+                                               placeholder="MM/yyyy">
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>Конечная дата:</dt>
+                                    <dd>
+                                        <input type="text"
+                                               name="${type}${counter.index}endDate"
+                                               size=10
+                                               value="<%=DateUtil.format(pos.getEndDate())%>"
+                                               placeholder="MM/yyyy">
+                                </dl>
+                                <dl>
+                                    <dt>Должность:</dt>
+                                    <dd><input type="text"
+                                               name='${type}${counter.index}title'
+                                               size=75
+                                               value="${pos.title}">
+                                </dl>
+                                <dl>
+                                    <dt>Описание:</dt>
+                                    <dd><textarea
+                                            name="${type}${counter.index}description"
+                                            rows=5
+                                            cols=75>${pos.description}</textarea>
+                                    </dd>
+                                </dl>
+                            </c:forEach>
+                        </div>
                     </c:forEach>
                 </c:when>
             </c:choose>

@@ -5,6 +5,10 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * gkislin
+ * 20.07.2016
+ */
 public class DateUtil {
 
     public static final LocalDate NOW = LocalDate.of(3000, 1, 1);
