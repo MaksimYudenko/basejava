@@ -20,18 +20,22 @@
     </export-instructions>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
-    <autoscroll-to-editor value="false" />
+    <autoscroll-to-editor value="true" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="false" />
+    <show-object-properties value="true" />
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="dee32667-2e0b-4ca3-ad28-0fca30c05c55">
       <console name="resumes" type="STANDARD" />
     </connection>
+    <connection id="6ce9de95-03e0-47d6-99a4-44d781d0723c">
+      <console name="resumes-application" type="STANDARD" />
+    </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" />
+    <connection id="6ce9de95-03e0-47d6-99a4-44d781d0723c" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-list connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" dataset="public.contact" active-filter-id="EMPTY_FILTER" />
@@ -42,8 +46,8 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/config/populate.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="public" />
-    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="dee32667-2e0b-4ca3-ad28-0fca30c05c55" session-id="MAIN" current-schema="information_schema" />
+    <mapping file-url="file://$PROJECT_DIR$/config/init_db.sql" connection-id="6ce9de95-03e0-47d6-99a4-44d781d0723c" session-id="MAIN" current-schema="" />
+    <mapping file-url="file://$PROJECT_DIR$/config/populate.sql" connection-id="6ce9de95-03e0-47d6-99a4-44d781d0723c" session-id="MAIN" current-schema="" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -62,7 +66,7 @@
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
     <recently-used-interfaces>
-      <mapping database-type="POSTGRES" interface-id="DEFAULT" />
+      <mapping database-type="POSTGRES" interface-id="c89e456f-9ed3-477e-8e08-144695932028" />
     </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
@@ -85,6 +89,83 @@
           <empty-password value="false" />
           <user value="postgres" />
           <password value="cG9zdGdyZXM=" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <proxy-password value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <details>
+          <charset value="UTF-8" />
+          <session-management value="true" />
+          <ddl-file-binding value="true" />
+          <database-logging value="false" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="true" />
+          <environment-type value="default" />
+          <idle-time-to-disconnect value="30" />
+          <password-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false">
+          <object-type-filter use-master-settings="true">
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+      <connection id="6ce9de95-03e0-47d6-99a4-44d781d0723c" active="true">
+        <database>
+          <name value="resumes-application" />
+          <description value="" />
+          <database-type value="POSTGRES" />
+          <config-type value="BASIC" />
+          <database-version value="9999.0" />
+          <driver-source value="EXTERNAL" />
+          <driver-library value="G:\Java\BaseJava\lib\postgresql-9.4.1211.jar" />
+          <driver value="org.postgresql.Driver" />
+          <url-type value="DATABASE" />
+          <host value="ec2-79-125-110-209.eu-west-1.compute.amazonaws.com" />
+          <port value="5432" />
+          <database value="d28fn68deinrdk" />
+          <os-authentication value="false" />
+          <empty-password value="false" />
+          <user value="knjgkqotspziwl" />
+          <password value="YzhiN2MxMjY5MmIyMjE5ZWViOTRmNTI3ZTk3YWZhYTQ3MTYzOTM2NjgyZDIzYmQxYjc3MWYxMDVkNzBlMjJkOQ==" />
         </database>
         <properties>
           <auto-commit value="false" />
@@ -466,7 +547,9 @@
         <prompt-execution value="false" />
       </statement-execution>
       <script-execution>
-        <command-line-interfaces />
+        <command-line-interfaces>
+          <value id="c89e456f-9ed3-477e-8e08-144695932028" name="PostgreSQL terminal" executable-path="$PROJECT_DIR$/../Programs/PostgreSQL/bin/psql.exe" database-type="POSTGRES" />
+        </command-line-interfaces>
         <execution-timeout value="300" />
       </script-execution>
       <method-execution>

@@ -12,27 +12,21 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <a href="resume?action=add"><img src="img/add.png"></a>
-    <table border="1" cellpadding="5" cellspacing="0" style="margin: auto">
+    <br>
+    <table border="1" cellpadding="8" cellspacing="0" style="margin: auto">
         <tr>
             <th>Имя</th>
-            <th>e-mail</th>
-            <th>удалить</th>
-            <th>изменить</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
         </tr>
-
         <c:forEach items="${resumes}" var="resume">
-            <jsp:useBean id="resume"
-                         type="ru.javawebinar.basejava.model.Resume"/>
+            <jsp:useBean id="resume" type="ru.javawebinar.basejava.model.Resume"/>
             <tr>
-                <td>
-                    <a href="resume?uuid=${resume.uuid}&action=view">${resume.fullName}</a>
-                </td>
-                <td><%=ContactType.MAIL.toHtml(resume.getContact(ContactType.MAIL))%>
-                </td>
-                <td><a href="resume?uuid=${resume.uuid}&action=delete"><img
-                        src="img/delete.png"></a></td>
-                <td><a href="resume?uuid=${resume.uuid}&action=edit"><img
-                        src="img/pencil.png"></a></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=view">${resume.fullName}</a></td>
+                <td><%=ContactType.MAIL.toHtml(resume.getContact(ContactType.MAIL))%></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=delete"><img src="img/delete.png"></a></td>
+                <td><a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></td>
             </tr>
         </c:forEach>
     </table>
